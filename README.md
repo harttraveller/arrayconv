@@ -40,12 +40,14 @@ This is made by generating a increment integer array.
 
 
 The int_to_bin function consists of a few different components. The first is the reshaping of the input 1D numpy array.
->>> arr = np.array([1,2,4,8])
->>> arr[:,None]
-    [[1]
-        [2]
-        [4]
-        [8]]
+```
+arr = np.array([1,2,4,8])
+arr[:,None]
+[[1]
+ [2]
+ [4]
+ [8]]
+```
 
 'arr[:,None]' is functionally equivalent to the following, with the exception that for some reason it is faster.
 >>> arr[:,np.newaxis]
