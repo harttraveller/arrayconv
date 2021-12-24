@@ -21,6 +21,7 @@ print(intarr)
 
 [1 2 4 8]
 ```
+
 ### EXPLANATIONS
 A critical component is the class variable 'revexp': '1 << np.arange(b))[::-1])'.
 This is made by generating a increment integer array.
@@ -121,10 +122,6 @@ we can see this is the same as multiplying the binary numbers at each index posi
 
 Thus, the logical and between the parameter array of ints, and the revexp array of ints is broadcasted, and the and operation is performed.
 
-    
-
-
-
-SOURCES
-    The source for the original method of convering integer arrays to binary can be found here:
-    https://stackoverflow.com/questions/22227595/convert-integer-to-binary-array-with-suitable-padding
+### SOURCES
+The source for the original method of convering integer arrays to binary can be found here:
+https://stackoverflow.com/questions/22227595/convert-integer-to-binary-array-with-suitable-padding
