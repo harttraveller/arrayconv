@@ -6,16 +6,20 @@ leading to a ~40% increase in speed.
 
 ### EXAMPLES
 ```
->>> ac = ArrayConversion()
->>> arr = np.array([1,2,4,8])
->>> binarr = ac.int_to_bin(arr)
->>> binarr
-    [[0, 0, 0, 0, 0, 0, 0, 1],
-     [0, 0, 0, 0, 0, 0, 1, 0],
-     [0, 0, 0, 0, 0, 1, 0, 0],
-     [0, 0, 0, 0, 1, 0, 0, 0]])   
->>> intarr = ac.bin_to_int(binarr)
->>> intarr
+ac = ArrayConversion()
+arr = np.array([1,2,4,8])
+binarr = ac.int_to_bin(arr)
+print(binarr)
+```
+
+[[0, 0, 0, 0, 0, 0, 0, 1],
+ [0, 0, 0, 0, 0, 0, 1, 0],
+ [0, 0, 0, 0, 0, 1, 0, 0],
+ [0, 0, 0, 0, 1, 0, 0, 0]])   
+
+```
+intarr = ac.bin_to_int(binarr)
+intarr
     [1 2 4 8]
 ```
 
@@ -23,19 +27,22 @@ leading to a ~40% increase in speed.
 A critical component is the class variable 'revexp': '1 << np.arange(b))[::-1])'.
 This is made by generating a increment integer array.
 ```
->>> np.arange(8)
-    [0 1 2 3 4 5 6 7]
+np.arange(8)
+
+[0 1 2 3 4 5 6 7]
 ```
 
 '[::-1]' is common notation and an easy way to reverse an array.
 ```
->>> np.arange(8)[::-1]
-    [7 6 5 4 3 2 1 0]
+np.arange(8)[::-1]
+
+[7 6 5 4 3 2 1 0]
 ```
 '<<' is the bitshift operator for numpy arrays. Applying it leaves us with a reversed exponential array, thus: 'revexp'.
 ```
->>> 1 << np.arange(8)[::-1]
-    [128  64  32  16   8   4   2   1]
+1 << np.arange(8)[::-1]
+
+[128  64  32  16   8   4   2   1]
 ```
 
 
@@ -43,10 +50,12 @@ The int_to_bin function consists of a few different components. The first is the
 ```
 arr = np.array([1,2,4,8])
 arr[:,None]
+
 [[1]
  [2]
  [4]
  [8]]
+
 ```
 
 'arr[:,None]' is functionally equivalent to the following, with the exception that for some reason it is faster.
