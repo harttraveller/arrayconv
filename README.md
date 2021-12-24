@@ -10,37 +10,37 @@ ac = ArrayConversion()
 arr = np.array([1,2,4,8])
 binarr = ac.int_to_bin(arr)
 print(binarr)
-```
 
 [[0, 0, 0, 0, 0, 0, 0, 1],
  [0, 0, 0, 0, 0, 0, 1, 0],
  [0, 0, 0, 0, 0, 1, 0, 0],
  [0, 0, 0, 0, 1, 0, 0, 0]])   
 
-```
 intarr = ac.bin_to_int(binarr)
-intarr
-    [1 2 4 8]
-```
+print(intarr)
 
+[1 2 4 8]
+```
 ### EXPLANATIONS
 A critical component is the class variable 'revexp': '1 << np.arange(b))[::-1])'.
 This is made by generating a increment integer array.
 ```
-np.arange(8)
+arr = np.arange(8)
+print(arr)
 
 [0 1 2 3 4 5 6 7]
 ```
-
 '[::-1]' is common notation and an easy way to reverse an array.
 ```
-np.arange(8)[::-1]
+arr = np.arange(8)[::-1]
+print(arr)
 
 [7 6 5 4 3 2 1 0]
 ```
 '<<' is the bitshift operator for numpy arrays. Applying it leaves us with a reversed exponential array, thus: 'revexp'.
 ```
-1 << np.arange(8)[::-1]
+arr = 1 << np.arange(8)[::-1]
+print(arr)
 
 [128  64  32  16   8   4   2   1]
 ```
@@ -49,7 +49,8 @@ np.arange(8)[::-1]
 The int_to_bin function consists of a few different components. The first is the reshaping of the input 1D numpy array.
 ```
 arr = np.array([1,2,4,8])
-arr[:,None]
+arr = arr[:,None]
+print(arr)
 
 [[1]
  [2]
@@ -59,36 +60,64 @@ arr[:,None]
 ```
 
 'arr[:,None]' is functionally equivalent to the following, with the exception that for some reason it is faster.
->>> arr[:,np.newaxis]
->>> arr.reshape(arr.size,1)
+```
+arr[:,np.newaxis]
+arr.reshape(arr.size,1)
+```
 
 Then, we use the '&' operator between the reshaped array, and the revexp array. Because of a mechanism called 'broadcasting' in numpy,
 we observe the following behavior.
->>> A = np.array([[1],
-                    [0],
-                    [1]])
->>> B = np.array([1,1,1])
->>> A * B
-    [[1 1 1]
-        [0 0 0]
-        [1 1 1]]
+```
+A = np.array([[1],
+              [0],
+              [1]])
+
+B = np.array([1,1,1])
+C = A * B
+print(C)
+
+[[1 1 1]
+ [0 0 0]
+ [1 1 1]]
+```
 
 This behavior manifests because the first element in A [1] is multiplied by each element in B [1,1,1], 
 the second element in A [0] is multiplied by each element in B [1,1,1], etc.
 The same behavior is true for the logical_and or '&' operator. Notably, the & operator can appear confusing
 at first, because when applied on non-binary ints, it behaves in the following way:
-    7 & 3 = 3
-    7 & 13 = 5
-    8 & 3 = 0
-    8 & 13 = 8
-
+```
+7 & 3 = 3
+7 & 13 = 5
+8 & 3 = 0
+8 & 13 = 8
+```
 The reason it does is, is that it implicitly treats each number as a binary number. Then, it does an elementwise logical_and
 operation on the two binary numbers. It is easier to see that this makes sense by taking the above examples and
 displaying them in binary (as four bit numbers):
-    [0 1 1 1] & [0 0 1 1] = [0 0 1 1]
-    [0 1 1 1] & [1 1 0 1] = [0 1 0 1]
-    [1 0 0 0] & [0 0 1 1] = [0 0 0 0]
-    [1 0 0 0] & [1 1 0 1] = [1 0 0 0]
+```
+[0 1 1 1] & [0 0 1 1] = [0 0 1 1]
+[0 1 1 1] & [1 1 0 1] = [0 1 0 1]
+[1 0 0 0] & [0 0 1 1] = [0 0 0 0]
+[1 0 0 0] & [1 1 0 1] = [1 0 0 0]
+```
+we can see this is the same as multiplying the binary numbers at each index position with each other:
+```
+[0 1 1 1] x
+[0 0 1 1] =
+[0 0 1 1]
+
+[0 1 1 1] x
+[1 1 0 1] =
+[0 1 0 1]
+
+[1 0 0 0] x
+[0 0 1 1] =
+[0 0 0 0]
+
+[1 0 0 0] x
+[1 1 0 1] =
+[1 0 0 0]
+```
 
 Thus, the logical and between the parameter array of ints, and the revexp array of ints is broadcasted, and the and operation is performed.
 
