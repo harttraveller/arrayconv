@@ -5,23 +5,23 @@ Doing this as a class speeds up the conversion functions by eliminating the need
 leading to a ~40% increase in speed.
 
 ### EXAMPLES
-    int_to_bin
-    ```
-        >>> ac = ArrayConversion()
-        >>> arr = np.array([1,2,4,8])
-        >>> binarr = ac.int_to_bin(arr)
-        >>> binarr
-            [[0, 0, 0, 0, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0, 0, 1, 0],
-                [0, 0, 0, 0, 0, 1, 0, 0],
-                [0, 0, 0, 0, 1, 0, 0, 0]])
-    ```            
-    bin_to_int (uses binarr variable from above)
-    ```
-        >>> intarr = ac.bin_to_int(binarr)
-        >>> intarr
-            [1 2 4 8]
-    ```
+int_to_bin
+```
+>>> ac = ArrayConversion()
+>>> arr = np.array([1,2,4,8])
+>>> binarr = ac.int_to_bin(arr)
+>>> binarr
+    [[0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 1, 0, 0, 0]])
+```            
+bin_to_int (uses binarr variable from above)
+```
+    >>> intarr = ac.bin_to_int(binarr)
+    >>> intarr
+        [1 2 4 8]
+```
 
 ### EXPLANATIONS
     Required Class Variable
@@ -42,7 +42,7 @@ leading to a ~40% increase in speed.
         >>> 1 << np.arange(b)[::-1] # where b = 8
             [128  64  32  16   8   4   2   1]
         ```
-          
+
     int_to_bin
         The int_to_bin function consists of a few different components. The first is the reshaping of the input 1D numpy array.
         >>> arr = np.array([1,2,4,8])
